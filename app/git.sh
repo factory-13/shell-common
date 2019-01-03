@@ -11,7 +11,7 @@
 # Timestamp generator.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function ext.timestamp() {
+ext.timestamp() {
     timestamp="$( date -u '+%Y-%m-%d %T' )"
 
     echo ${timestamp}
@@ -21,7 +21,7 @@ function ext.timestamp() {
 # Version generator.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function ext.build.version() {
+ext.build.version() {
     version="$( date -u '+%Y%m%d%H%M%S' )"
 
     echo ${version}
@@ -31,7 +31,7 @@ function ext.build.version() {
 # Push.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function ext.git.push() {
+ext.git.push() {
     name="$( basename ${PWD} )"
     timestamp="$( ext.timestamp )"
     commit="$*"
@@ -49,7 +49,7 @@ function ext.git.push() {
 # Push all.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function ext.git.push.all() {
+ext.git.push.all() {
     for i in `ls`; do
         if [[ -d ${i}/.git ]]; then
             cd ${i}
@@ -63,7 +63,7 @@ function ext.git.push.all() {
 # Push version.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function ext.git.push.version() {
+ext.git.push.version() {
     tags="$( git tag --list )"
     changes="$(git status --porcelain)"
 
@@ -94,7 +94,7 @@ function ext.git.push.version() {
 # Push page.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function ext.git.push.page() {
+ext.git.push.page() {
     if [[ -z "${1}" ]]; then
         branch="page-stable"
     else
@@ -108,7 +108,7 @@ function ext.git.push.page() {
 # Push CDN.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function ext.git.push.cdn() {
+ext.git.push.cdn() {
     if [[ -z "${1}" ]]; then
         branch="cdn-stable"
     else
