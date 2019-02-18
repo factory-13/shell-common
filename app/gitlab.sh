@@ -41,8 +41,8 @@ run.gitlab.project.create() {
             ;;
     esac
 
-    ${curl}                             \
-    --header "Private-Token: ${token}"  \
-    -X POST                             \
+    ${curl}                         \
+    -H "Private-Token: ${token}"    \
+    -X POST                         \
     "https://gitlab.com/api/v4/projects?name=${name}&description=${description}&namespace_id=${namespace}&visibility=${visibility}&tag_list=${tags}&initialize_with_readme=true"
 }
