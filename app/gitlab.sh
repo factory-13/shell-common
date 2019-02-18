@@ -42,7 +42,18 @@ run.gitlab.project.create() {
     esac
 
     ${curl}                         \
-    -H "Private-Token: ${token}"    \
+    -H "PRIVATE-TOKEN: ${token}"    \
     -X POST                         \
     "https://gitlab.com/api/v4/projects?name=${name}&description=${description}&namespace_id=${namespace}&visibility=${visibility}&tag_list=${tags}&initialize_with_readme=true"
+}
+
+run.gitlab.project.remove() {
+    token="${1}"
+    id="${2}"
+    curl="$( ext.gitlab.get.curl )"
+
+    ${curl}                         \
+    -H "PRIVATE-TOKEN: ${token}"    \
+    -X DELETE                       \
+    "https://gitlab.com/api/v4/projects/${id}"
 }
