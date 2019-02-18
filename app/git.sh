@@ -11,7 +11,7 @@
 # Timestamp generator.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-ext.timestamp() {
+ext.git.timestamp() {
     timestamp="$( date -u '+%Y-%m-%d %T' )"
 
     echo ${timestamp}
@@ -21,7 +21,7 @@ ext.timestamp() {
 # Version generator.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-ext.build.version() {
+ext.git.build.version() {
     version="$( date -u '+%Y%m%d%H%M%S' )"
 
     echo ${version}
@@ -31,9 +31,9 @@ ext.build.version() {
 # Push.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-ext.git.push() {
+run.git.push() {
     name="$( basename ${PWD} )"
-    timestamp="$( ext.timestamp )"
+    timestamp="$( ext.git.timestamp )"
     commit="$*"
 
     echo ""
@@ -49,7 +49,7 @@ ext.git.push() {
 # Push all.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-ext.git.push.all() {
+run.git.push.all() {
     for i in `ls`; do
         if [[ -d ${i}/.git ]]; then
             cd ${i}
@@ -63,7 +63,7 @@ ext.git.push.all() {
 # Push version.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-ext.git.push.version() {
+run.git.push.version() {
     tags="$( git tag --list )"
     changes="$(git status --porcelain)"
 
@@ -94,7 +94,7 @@ ext.git.push.version() {
 # Push page.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-ext.git.push.page() {
+run.git.push.page() {
     if [[ -z "${1}" ]]; then
         branch="page-stable"
     else
@@ -108,7 +108,7 @@ ext.git.push.page() {
 # Push CDN.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-ext.git.push.cdn() {
+run.git.push.cdn() {
     if [[ -z "${1}" ]]; then
         branch="cdn-stable"
     else
