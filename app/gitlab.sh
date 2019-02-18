@@ -24,7 +24,7 @@ run.gitlab.project.create() {
     namespace="${4}"
     visibility="${5}"
     tags="${6}"
-    path="${name,,}"
+    url="$( echo ${name} | tr '[:upper:]' '[:lower:]' )"
     curl="$( ext.gitlab.get.curl )"
 
     case ${visibility} in
@@ -45,7 +45,7 @@ run.gitlab.project.create() {
     ${curl}                         \
     -H "PRIVATE-TOKEN: ${token}"    \
     -X POST                         \
-    "https://gitlab.com/api/v4/projects?name=${name}&path=${path}&namespace_id=${namespace}&description=${description}&visibility=${visibility}&tag_list=${tags}&initialize_with_readme=true"
+    "https://gitlab.com/api/v4/projects?name=${name}&path=${url}&namespace_id=${namespace}&description=${description}&visibility=${visibility}&tag_list=${tags}&initialize_with_readme=true"
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -73,7 +73,7 @@ run.gitlab.group.create() {
     description="${3}"
     visibility="${4}"
     parent="${5}"
-    path="${name,,}"
+    url="$( echo ${name} | tr '[:upper:]' '[:lower:]' )"
     curl="$( ext.gitlab.get.curl )"
 
     case ${visibility} in
@@ -94,7 +94,7 @@ run.gitlab.group.create() {
     ${curl}                         \
     -H "PRIVATE-TOKEN: ${token}"    \
     -X POST                         \
-    "https://gitlab.com/api/v4/groups?name=${name}&path=${path}&description=${description}&visibility=${visibility}&parent_id=${parent}"
+    "https://gitlab.com/api/v4/groups?name=${name}&path=${url}&description=${description}&visibility=${visibility}&parent_id=${parent}"
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
