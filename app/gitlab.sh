@@ -62,6 +62,10 @@ run.gitlab.project.remove() {
     "https://gitlab.com/api/v4/projects/${id}"
 }
 
+# -------------------------------------------------------------------------------------------------------------------- #
+# GitLab group create.
+# -------------------------------------------------------------------------------------------------------------------- #
+
 run.gitlab.group.create() {
     token="${1}"
     name="${2}"
@@ -89,4 +93,19 @@ run.gitlab.group.create() {
     -H "PRIVATE-TOKEN: ${token}"    \
     -X POST                         \
     "https://gitlab.com/api/v4/groups?name=${name}&description=${description}&visibility=${visibility}&parent_id=${parent}"
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# GitLab group remove.
+# -------------------------------------------------------------------------------------------------------------------- #
+
+run.gitlab.group.remove() {
+    token="${1}"
+    id="${2}"
+    curl="$( ext.gitlab.get.curl )"
+
+    ${curl}                         \
+    -H "PRIVATE-TOKEN: ${token}"    \
+    -X DELETE                       \
+    "https://gitlab.com/api/v4/groups/${id}"
 }
