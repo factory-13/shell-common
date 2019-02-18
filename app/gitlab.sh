@@ -24,7 +24,7 @@ run.gitlab.project.create() {
     namespace="${4}"
     visibility="${5}"
     tags="${6}"
-    path="${name}"
+    path="${name,,}"
     curl="$( ext.gitlab.get.curl )"
 
     case ${visibility} in
@@ -73,7 +73,7 @@ run.gitlab.group.create() {
     description="${3}"
     visibility="${4}"
     parent="${5}"
-    path="${name}"
+    path="${name,,}"
     curl="$( ext.gitlab.get.curl )"
 
     case ${visibility} in
