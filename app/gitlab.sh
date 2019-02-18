@@ -47,6 +47,10 @@ run.gitlab.project.create() {
     "https://gitlab.com/api/v4/projects?name=${name}&description=${description}&namespace_id=${namespace}&visibility=${visibility}&tag_list=${tags}&initialize_with_readme=true"
 }
 
+# -------------------------------------------------------------------------------------------------------------------- #
+# GitLab project remove.
+# -------------------------------------------------------------------------------------------------------------------- #
+
 run.gitlab.project.remove() {
     token="${1}"
     id="${2}"
@@ -56,4 +60,33 @@ run.gitlab.project.remove() {
     -H "PRIVATE-TOKEN: ${token}"    \
     -X DELETE                       \
     "https://gitlab.com/api/v4/projects/${id}"
+}
+
+run.gitlab.group.create() {
+    token="${1}"
+    name="${2}"
+    description="${3}"
+    visibility="${4}"
+    parent="${5}"
+    curl="$( ext.gitlab.get.curl )"
+
+    case ${visibility} in
+        private)
+            visibility="private"
+            ;;
+        internal)
+            visibility="internal"
+            ;;
+        public)
+            visibility="public"
+            ;;
+        *)
+            exit 1
+            ;;
+    esac
+
+    ${curl}                         \
+    -H "PRIVATE-TOKEN: ${token}"    \
+    -X POST                         \
+    "https://gitlab.com/api/v4/groups?name=${name}&description=${description}&visibility=${visibility}&parent_id=${parent}"
 }
