@@ -36,9 +36,9 @@ for i in "${name[@]}"; do
     echo ""
     echo "--- Open: ${i}"
 
-    ${curl}                         \
-    -H "PRIVATE-TOKEN: ${token}"    \
-    -X POST                         \
+    ${curl}                             \
+    --header "PRIVATE-TOKEN: ${token}"  \
+    --request POST                      \
     "https://gitlab.com/api/v4/groups?name=${i}&path=${url}&description=${description}&visibility=${visibility}&parent_id=${parent}"
 
     echo ""

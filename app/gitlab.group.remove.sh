@@ -17,9 +17,9 @@ for i in "${id[@]}"; do
     echo ""
     echo "--- Remove: ${i}"
 
-    ${curl}                         \
-    -H "PRIVATE-TOKEN: ${token}"    \
-    -X DELETE                       \
+    ${curl}                             \
+    --header "PRIVATE-TOKEN: ${token}"  \
+    --request DELETE                    \
     "https://gitlab.com/api/v4/groups/${i}"
 
     echo ""

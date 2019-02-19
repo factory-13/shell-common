@@ -37,9 +37,9 @@ for i in "${name[@]}"; do
     echo ""
     echo "--- Open: ${i}"
 
-    ${curl}                         \
-    -H "PRIVATE-TOKEN: ${token}"    \
-    -X POST                         \
+    ${curl}                             \
+    --header "PRIVATE-TOKEN: ${token}"  \
+    --request POST                      \
     "https://gitlab.com/api/v4/projects?name=${i}&path=${url}&namespace_id=${namespace}&description=${description}&visibility=${visibility}&tag_list=${tags}&initialize_with_readme=true"
 
     echo ""
