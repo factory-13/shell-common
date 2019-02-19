@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# GitLab API.
+# GitLab API. Create group.
 # -------------------------------------------------------------------------------------------------------------------- #
 # @author Kitsune Solar <kitsune.solar@gmail.com>
 # @version 1.0.0
@@ -13,7 +13,7 @@ description="${3}"
 visibility="${4}"
 parent="${5}"
 curl="$( which curl )"
-sleep="5"
+sleep="2"
 
 case ${visibility} in
     private)
@@ -33,10 +33,17 @@ esac
 for i in "${name[@]}"; do
     url="$( echo ${i} | tr '[:upper:]' '[:lower:]' )"
 
+    echo ""
+    echo "--- Open: ${i}"
+
     ${curl}                         \
     -H "PRIVATE-TOKEN: ${token}"    \
     -X POST                         \
     "https://gitlab.com/api/v4/groups?name=${i}&path=${url}&description=${description}&visibility=${visibility}&parent_id=${parent}"
+
+    echo ""
+    echo "--- Done: ${i}"
+    echo ""
 
     sleep ${sleep}
 done
