@@ -18,6 +18,8 @@ curl="$( which curl )"
 ver="4"
 sleep="2"
 
+if (( ! ${#name[@]} )) && [[ -z "${namespace}" ]]; then exit 1; fi
+
 case ${visibility} in
     private)
         visibility="private"
@@ -50,3 +52,5 @@ for i in "${name[@]}"; do
 
     sleep ${sleep}
 done
+
+exit 0

@@ -1,36 +1,35 @@
 #!/usr/bin/env bash
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# GitLab API. Remove group.
+# GitLab API. Create project.
 # -------------------------------------------------------------------------------------------------------------------- #
 # @author Kitsune Solar <kitsune.solar@gmail.com>
 # @version 1.0.0
 # -------------------------------------------------------------------------------------------------------------------- #
 
 token="${1}"
-id="${2}"; IFS=';' read -a id <<< "${id}"
+id="${2}"
+file="${3}"
 
 curl="$( which curl )"
 ver="4"
 sleep="2"
 
-if (( ! ${#id[@]} )); then exit 1; fi
+if [[ -z "${id}" ]] && [[ -z "${file}" ]]; then exit 1; fi
 
-for i in "${id[@]}"; do
+echo ""
+echo "--- Upload: ${id} < ${file}"
 
-    echo ""
-    echo "--- Remove: ${i}"
+${curl}                             \
+--header "PRIVATE-TOKEN: ${token}"  \
+--request POST                      \
+--form "file=@${file}"              \
+"https://gitlab.com/api/v${ver}/projects/${id}/uploads"
 
-    ${curl}                             \
-    --header "PRIVATE-TOKEN: ${token}"  \
-    --request DELETE                    \
-    "https://gitlab.com/api/v${ver}/groups/${i}"
+echo ""
+echo "--- Done: ${id} < ${file}"
+echo ""
 
-    echo ""
-    echo "--- Done: ${i}"
-    echo ""
-
-    sleep ${sleep}
-done
+sleep ${sleep}
 
 exit 0

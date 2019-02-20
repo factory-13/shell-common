@@ -14,6 +14,8 @@ curl="$( which curl )"
 ver="4"
 sleep="2"
 
+if (( ! ${#id[@]} )); then exit 1; fi
+
 for i in "${id[@]}"; do
 
     echo ""
@@ -30,3 +32,5 @@ for i in "${id[@]}"; do
 
     sleep ${sleep}
 done
+
+exit 0
