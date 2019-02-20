@@ -12,7 +12,9 @@ name="${2}"; IFS=';' read -a name <<< "${name}"
 description="${3}"
 visibility="${4}"
 parent="${5}"
+
 curl="$( which curl )"
+ver="4"
 sleep="2"
 
 case ${visibility} in
@@ -39,7 +41,7 @@ for i in "${name[@]}"; do
     ${curl}                             \
     --header "PRIVATE-TOKEN: ${token}"  \
     --request POST                      \
-    "https://gitlab.com/api/v4/groups?name=${i}&path=${url}&description=${description}&visibility=${visibility}&parent_id=${parent}"
+    "https://gitlab.com/api/v${ver}/groups?name=${i}&path=${url}&description=${description}&visibility=${visibility}&parent_id=${parent}"
 
     echo ""
     echo "--- Done: ${i}"

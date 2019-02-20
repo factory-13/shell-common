@@ -9,7 +9,9 @@
 
 token="${1}"
 id="${2}"; IFS=';' read -a id <<< "${id}"
+
 curl="$( which curl )"
+ver="4"
 sleep="2"
 
 for i in "${id[@]}"; do
@@ -20,7 +22,7 @@ for i in "${id[@]}"; do
     ${curl}                             \
     --header "PRIVATE-TOKEN: ${token}"  \
     --request DELETE                    \
-    "https://gitlab.com/api/v4/groups/${i}"
+    "https://gitlab.com/api/v${ver}/groups/${i}"
 
     echo ""
     echo "--- Done: ${i}"

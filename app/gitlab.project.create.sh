@@ -13,7 +13,9 @@ description="${3}"
 visibility="${4}"
 tags="${5}"
 namespace="${6}"
+
 curl="$( which curl )"
+ver="4"
 sleep="2"
 
 case ${visibility} in
@@ -40,7 +42,7 @@ for i in "${name[@]}"; do
     ${curl}                             \
     --header "PRIVATE-TOKEN: ${token}"  \
     --request POST                      \
-    "https://gitlab.com/api/v4/projects?name=${i}&path=${url}&namespace_id=${namespace}&description=${description}&visibility=${visibility}&tag_list=${tags}&initialize_with_readme=true"
+    "https://gitlab.com/api/v${ver}/projects?name=${i}&path=${url}&namespace_id=${namespace}&description=${description}&visibility=${visibility}&tag_list=${tags}&initialize_with_readme=true"
 
     echo ""
     echo "--- Done: ${i}"
